@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>SWF拍照Demo -- 租房宝</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style>
+			#divSwfPhoto{width:480px;height:320px;border:solid 1px red;}
+		</style>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="swfphoto.js"></script>
+	</head>
+	<body>
+		<div>
+			<div>SWF拍照Demo</div>
+			<div id="divSwfPhoto">
+			</div>
+			<div id="divButtons">
+				<input type="button" value="拍照"/>
+				<input type="button" value="重拍"/>
+				<input type="button" value="上传"/>
+			</div>
+			<div>
+				<a href="http://www.zufangbao.com" target="_blank">租房宝-网上轻松付房租</a>
+			</div>
+		</div>
+		<div id="divLog"></div>
+<script type="text/javascript">
+	/**是否支持Falsh*/
+	$.isSupportFlash = function() {
+	    var hasFlash = false;
+	    try {
+	      if (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) {
+	        hasFlash = true;
+	      }
+	    } catch (error) {
+	    	var flashType = "application/x-shockwave-flash";
+	    	if (navigator.mimeTypes && navigator.mimeTypes[flashType] && navigator.mimeTypes[flashType].enabledPlugin && navigator.mimeTypes[flashType].enabledPlugin.description) {
+	    		hasFlash = true;
+	    	}
+	    }
+	    return hasFlash;
+	};
+	/////
+	function addLog(msg){
+		var objLog = $("<div></div>");
+		objLog.text(msg);
+		objLog.appendTo($("#divLog"));
+	}
+	var strUploadUrl = "http://www.zufangbao.cn:8888/uploader/uploadimg.htm?category=1&owner=0";
+	var settings = {
+		flash_url : "swfphoto.swf",
+		uploadUrl: strUploadUrl,
+		fileFieldName : "file",
+		placeholder_id: "divSwfPhoto",
+		width:480,
+		height:320,
+		noCamera_handler: function(){addLog("没有找到摄像头");},
+		snapped_handler : function(){addLog("拍照成功");},
+		resetted_handler : function(){addLog("重置成功");},
+		uploadBegin_handler : function(){addLog("开始上传");},
+		uploadProgress_handler:function(bytesLoaded, bytesTotal){addLog("上传进度" + bytesLoaded + "/" + bytesTotal + "...");},
+		uploadError_handler : function(errorCode, message){addLog("上传错误" + errorCode + ":" + message + "...");},
+		uploadSuccess_handler : function(serverData){addLog("上传成功:" + serverData);}
+	};
+	var swfPhoto = new SWFPhoto(settings);
+	var buttons = $("#divButtons input");
+	buttons.eq(0).click(function(){swfPhoto.doSnap();});
+	buttons.eq(1).click(function(){swfPhoto.resetCamera();});
+	buttons.eq(2).click(function(){swfPhoto.doUpload();});
+</script>
+	</body>
+</html>
