@@ -54,7 +54,7 @@
 		placeholder_id: "divSwfPhoto",
 		width:480,
 		height:320,
-		noCamera_handler: function(){addLog("没有找到摄像头");},
+		init_handler: function(hasCamera){addLog("初始化完成!" + hasCamera);},
 		snapped_handler : function(){addLog("拍照成功");},
 		resetted_handler : function(){addLog("重置成功");},
 		uploadBegin_handler : function(){addLog("开始上传");},

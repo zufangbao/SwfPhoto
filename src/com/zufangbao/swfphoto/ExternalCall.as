@@ -17,8 +17,8 @@ package com.zufangbao.swfphoto
 		 * 没有摄像头通知
 		 * @param	callback
 		 */
-		public static function noCamera(callback:String):void {
-			ExternalInterface.call(callback);
+		public static function init(callback:String, hasCamera:Boolean):void {
+			ExternalInterface.call(callback, escapeMessage(hasCamera));
 		}
 		/**
 		 * 拍照完成通知

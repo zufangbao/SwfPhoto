@@ -57,7 +57,7 @@ SWFPhoto.prototype.initSettings = function () {
 	this.ensureDefault("flash_url", "swfphoto.swf");
 	this.ensureDefault("prevent_swf_caching", true);
 	// Event Handlers
-	this.ensureDefault("noCamera_handler", null);
+	this.ensureDefault("init_handler", null);
 	this.ensureDefault("snapped_handler", null);
 	this.ensureDefault("resetted_handler", null);
 	this.ensureDefault("uploadBegin_handler", null);
@@ -251,10 +251,10 @@ SWFPhoto.prototype.cleanUp = function (movieElement) {
 	};
 
 };
-/**没有摄像头通知*/
-SWFPhoto.prototype.noCamera = function () {
-	if (typeof this.settings.noCamera_handler === "function") {
-		this.settings.noCamera_handler();
+/**初始化完成通知*/
+SWFPhoto.prototype.init = function (hasCamera) {
+	if (typeof this.settings.init_handler === "function") {
+		this.settings.init_handler(hasCamera);
 	}
 };
 /**拍照完成*/

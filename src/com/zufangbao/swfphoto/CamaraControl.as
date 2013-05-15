@@ -71,7 +71,7 @@ package com.zufangbao.swfphoto
 		/**上传文件的进度条标签*/
 		private var progressLabel:TextField = null;
 		/**没有摄像头通知事件*/
-		private var noCamera_Callback:String;
+		private var init_Callback:String;
 		/**生成快照通知事件*/
 		private var snapped_Callback:String;
 		/**重置为摄像模式通知事件*/
@@ -98,9 +98,6 @@ package com.zufangbao.swfphoto
 			
 			//取得摄像头数
 			this.hasCamera = Camera.names.length > 0;
-			if (!this.hasCamera) {//没有摄像头
-				ExternalCall.noCamera(this.noCamera_Callback);
-			}
 			Security.allowDomain("*");//允许上传到任何的域名下
 			//不显示flash script is running slowly错误
 			var counter:Number = 0;
@@ -115,13 +112,14 @@ package com.zufangbao.swfphoto
 			this.initCamera();
 			//初始化上传内容
 			this.initUpload();
+			ExternalCall.init(this.init_Callback, hasCamera);
 		}
 		/**
 		 * 初始化事件回调通知
 		 */
 		private function initEventCallback():void {
 			//主要回调
-			this.noCamera_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].noCamera";
+			this.init_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].init";
 			this.snapped_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].snapped";
 			this.resetted_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].resetted";
 			this.uploadBegin_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].uploadBegin";
