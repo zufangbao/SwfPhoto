@@ -57,7 +57,7 @@ SWFPhoto.prototype.initSettings = function () {
 	this.ensureDefault("flash_url", "swfphoto.swf");
 	this.ensureDefault("prevent_swf_caching", true);
 	// Event Handlers
-	this.ensureDefault("init_handler", null);
+	this.ensureDefault("initCompleted_handler", null);
 	this.ensureDefault("snapped_handler", null);
 	this.ensureDefault("resetted_handler", null);
 	this.ensureDefault("uploadBegin_handler", null);
@@ -252,9 +252,9 @@ SWFPhoto.prototype.cleanUp = function (movieElement) {
 
 };
 /**初始化完成通知*/
-SWFPhoto.prototype.init = function (hasCamera) {
-	if (typeof this.settings.init_handler === "function") {
-		this.settings.init_handler(hasCamera);
+SWFPhoto.prototype.initCompleted = function (hasCamera) {
+	if (typeof this.settings.initCompleted_handler === "function") {
+		this.settings.initCompleted_handler(hasCamera);
 	}
 };
 /**拍照完成*/

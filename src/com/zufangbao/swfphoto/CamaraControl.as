@@ -71,7 +71,7 @@ package com.zufangbao.swfphoto
 		/**上传文件的进度条标签*/
 		private var progressLabel:TextField = null;
 		/**没有摄像头通知事件*/
-		private var init_Callback:String;
+		private var initCompleted_Callback:String;
 		/**生成快照通知事件*/
 		private var snapped_Callback:String;
 		/**重置为摄像模式通知事件*/
@@ -112,14 +112,14 @@ package com.zufangbao.swfphoto
 			this.initCamera();
 			//初始化上传内容
 			this.initUpload();
-			ExternalCall.init(this.init_Callback, hasCamera);
+			ExternalCall.initCompleted(this.initCompleted_Callback, hasCamera);
 		}
 		/**
 		 * 初始化事件回调通知
 		 */
 		private function initEventCallback():void {
 			//主要回调
-			this.init_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].init";
+			this.initCompleted_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].initCompleted";
 			this.snapped_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].snapped";
 			this.resetted_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].resetted";
 			this.uploadBegin_Callback = "SWFPhoto.instances[\"" + this.movieName + "\"].uploadBegin";
